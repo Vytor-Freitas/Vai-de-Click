@@ -103,6 +103,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        slug: slug,
         categorias: config.categorias,
         ordenacao: ordenacaoAtual,
         page: paginaAtual,

@@ -6,9 +6,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const token = process.env.DIVULGALINKS_TOKEN;
+  const { slug, ...bodyParams } = req.body || {};
+  const envKey = 'DIVULGALINKS_TOKEN_' + (slug || '').toUpperCase().replace(/-/g, '_');
+  const token = process.env[envKey] || process.env.DIVULGALINKS_TOKEN;
   if (!token) {
-    return res.status(500).json({ error: 'Token nao configurado' });
+    return res.status(500).json({ error: 'Token nao configurado para: ' + (slug || 'default') });
   }
 
   try {
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
         'X-Requested-From': process.env.SITE_URL || 'https://vaideclick.com',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(req.body || {}),
+      body: JSON.stringify(bodyParams),
     });
 
     if (!upstream.ok) {
