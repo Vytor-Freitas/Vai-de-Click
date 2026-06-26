@@ -59,7 +59,7 @@
       ? '<img src="' + escapar(imgSrc) + '" alt="" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">'
       : '<div class="w-full h-20 bg-gray-100 rounded-lg mb-2 flex items-center justify-center text-3xl">' + config.icone + '</div>';
     return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" ' +
-      'class="flex-shrink-0 w-32 bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-shadow flex flex-col">' +
+      'class="flex-shrink-0 w-32 lg:w-auto bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-shadow flex flex-col">' +
       imgHtml +
       '<p class="text-[10px] font-medium text-gray-800 leading-tight mb-0.5 line-clamp-2 flex-1">' + titulo + '</p>' +
       (preco ? '<p class="text-[11px] font-black text-vdc-red">' + preco + '</p>' : '') +
@@ -77,12 +77,12 @@
       ? '<img src="' + escapar(imgSrc) + '" alt="" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy">'
       : '<div class="w-full aspect-square bg-gray-100 rounded-lg mb-2 flex items-center justify-center text-4xl">' + config.icone + '</div>';
     return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" ' +
-      'class="bg-white rounded-xl p-2 shadow-sm hover:shadow-md transition-shadow flex flex-col">' +
+      'class="bg-white rounded-xl p-2 lg:p-3 shadow-sm hover:shadow-md transition-shadow flex flex-col">' +
       imgHtml +
-      '<p class="text-[11px] font-medium text-gray-800 leading-tight mb-1 line-clamp-2 flex-1">' + titulo + '</p>' +
-      (preco ? '<p class="text-sm font-black text-vdc-red">' + preco + '</p>' : '') +
+      '<p class="text-[11px] lg:text-xs font-medium text-gray-800 leading-tight mb-1 line-clamp-2 flex-1">' + titulo + '</p>' +
+      (preco ? '<p class="text-sm lg:text-base font-black text-vdc-red">' + preco + '</p>' : '') +
       (precoAntigo ? '<p class="text-[9px] text-gray-400 line-through -mt-0.5 mb-1">' + precoAntigo + '</p>' : '') +
-      '<div class="mt-auto card-btn text-white text-[9px] font-bold px-2 py-1.5 rounded-md text-center">VER OFERTA</div></a>';
+      '<div class="mt-auto card-btn text-white text-[9px] lg:text-[10px] font-bold px-2 py-1.5 rounded-md text-center">VER OFERTA</div></a>';
   }
 
   function carregarProdutos() {

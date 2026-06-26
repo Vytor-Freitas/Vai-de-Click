@@ -92,17 +92,22 @@
 </head>
 
 <body class="bg-vdc-bg antialiased min-h-screen overflow-x-hidden">
-  <div class="max-w-sm mx-auto flex flex-col min-h-screen">
+  <div class="max-w-sm mx-auto lg:max-w-6xl flex flex-col min-h-screen">
 
-    <nav class="vdc-gradient sticky top-0 z-50 px-4 py-2.5 flex items-center justify-between shadow-lg">
+    <nav class="vdc-gradient sticky top-0 z-50 px-4 lg:px-8 py-2.5 flex items-center justify-between shadow-lg">
   <div class="flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg overflow-hidden border-2 border-white/30 flex-shrink-0">
       <img src="logo.jpeg" alt="Vai de Click" class="w-full h-full object-cover">
     </div>
     <div>
       <p class="font-heading font-black text-white text-sm leading-none tracking-tight">VAI DE CLICK</p>
-      <p class="text-white/70 text-[10px] leading-none mt-0.5">Ofertas &amp; Descontos</p>
+      <p class="text-white/70 text-[10px] leading-none mt-0.5">Eletrônicos &amp; Descontos</p>
     </div>
+  </div>
+  <div class="hidden lg:flex items-center gap-6">
+    <a href="#nossas-lojas" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Categorias</a>
+    <a href="#ofertas-destaque" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Ofertas</a>
+    <a href="#grupos-vip" class="text-white/80 text-sm font-medium hover:text-white transition-colors">WhatsApp</a>
   </div>
   <div class="flex items-center gap-2">
     <a href="https://www.instagram.com/vai_declick/" target="_blank" rel="noopener noreferrer"
@@ -118,30 +123,30 @@
 
     <main class="flex-1 flex flex-col">
 
-      <section class="vdc-gradient-hero px-5 py-8 relative overflow-hidden">
-  <div class="absolute right-[-16px] top-[-16px] text-[96px] opacity-[0.08] select-none pointer-events-none">💻</div>
+      <section class="vdc-gradient-hero px-5 lg:px-10 py-8 lg:py-16 relative overflow-hidden">
+  <div class="absolute right-[-16px] top-[-16px] text-[96px] lg:text-[180px] opacity-[0.08] select-none pointer-events-none">💻</div>
   <span class="inline-flex items-center gap-1.5 bg-white/25 text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-widest mb-3 animate-pulse">
     🔥 PROMOÇÕES TODO DIA
   </span>
-  <h1 class="font-heading font-black text-white text-[22px] leading-tight mb-1">
+  <h1 class="font-heading font-black text-white text-[22px] lg:text-5xl leading-tight mb-1 lg:mb-3">
     Eletrônicos com o<br>melhor preço!
   </h1>
-  <p class="text-white/80 text-xs mb-5">
+  <p class="text-white/80 text-xs lg:text-base mb-5 lg:mb-8">
     Smartphones, notebooks, TVs, games e muito mais 💸
   </p>
   <div class="flex items-center gap-3">
     <a href="#grupos-vip"
-       class="flex items-center gap-1.5 bg-white text-vdc-red font-bold text-xs px-4 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
-      📱 Grupos VIP
+       class="flex items-center gap-1.5 bg-white text-vdc-red font-bold text-xs lg:text-sm px-4 lg:px-6 py-2 lg:py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+      📱 Grupo VIP
     </a>
     <a href="#nossas-lojas"
-       class="flex items-center gap-1.5 border border-white/50 text-white font-bold text-xs px-4 py-2 rounded-full hover:bg-white/10 transition-colors">
-      🛍️ Ver Lojas
+       class="flex items-center gap-1.5 border border-white/50 text-white font-bold text-xs lg:text-sm px-4 lg:px-6 py-2 lg:py-3 rounded-full hover:bg-white/10 transition-colors">
+      🛍️ Ver Categorias
     </a>
   </div>
 </section>
 
-      <div id="chips-bar" class="bg-white border-b border-gray-100 px-3 py-2 flex gap-2 overflow-x-auto">
+      <div id="chips-bar" class="bg-white border-b border-gray-100 px-3 py-2 flex gap-2 overflow-x-auto lg:hidden">
   <button data-target="#nossas-lojas"
           class="chip chip-active flex-shrink-0 text-[10px] font-bold px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
     🌟 Início
@@ -156,12 +161,12 @@
   </button>
 </div>
 
-      <section id="nossas-lojas" class="px-3 pt-4 pb-2">
+      <section id="nossas-lojas" class="px-3 lg:px-8 pt-4 lg:pt-10 pb-2">
   <div class="flex items-center gap-2 mb-3">
     <div class="section-bar h-4 flex-shrink-0"></div>
-    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Nossas Lojas</h2>
+    <h2 class="text-[11px] lg:text-sm font-black text-vdc-text uppercase tracking-widest">Categorias</h2>
   </div>
-  <div class="grid grid-cols-3 gap-2">
+  <div class="grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-4">
 
     <a href="categoria.html?cat=eletronicos"
        class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-vdc-red hover:shadow-md transition-shadow">
@@ -214,61 +219,64 @@
   </div>
 </section>
 
-      <section id="ofertas-destaque" class="px-3 pt-4 pb-4">
+      <section id="ofertas-destaque" class="px-3 lg:px-8 pt-4 lg:pt-10 pb-4">
   <div class="flex items-center gap-2 mb-4">
     <div class="section-bar h-4 flex-shrink-0"></div>
-    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Ofertas em Destaque</h2>
+    <h2 class="text-[11px] lg:text-sm font-black text-vdc-text uppercase tracking-widest">Ofertas em Destaque</h2>
   </div>
 
   <div id="destaque-eletronicos" class="mb-5">
-    <div class="flex items-center justify-between mb-2">
-      <span class="text-xs font-bold text-vdc-text">💻 Eletrônicos</span>
-      <a href="categoria.html?cat=eletronicos" class="text-[10px] text-vdc-red font-medium hover:underline">Ver todos →</a>
+    <div class="flex items-center justify-between mb-2 lg:mb-4">
+      <span class="text-xs lg:text-sm font-bold text-vdc-text">💻 Eletrônicos</span>
+      <a href="categoria.html?cat=eletronicos" class="text-[10px] lg:text-xs text-vdc-red font-medium hover:underline">Ver todos →</a>
     </div>
-    <div id="produtos-eletronicos" class="flex gap-2 overflow-x-auto pb-1"></div>
+    <div id="produtos-eletronicos" class="flex gap-2 overflow-x-auto pb-1 lg:grid lg:grid-cols-4 lg:overflow-x-visible lg:pb-0 lg:gap-4"></div>
   </div>
-
 
 </section>
 
-      <section id="grupos-vip" class="px-3 pt-4 pb-2">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-6 lg:px-8 lg:pt-10 lg:pb-4">
+
+      <section id="grupos-vip" class="px-3 lg:px-0 pt-4 lg:pt-0 pb-2">
   <div class="flex items-center gap-2 mb-3">
     <div class="section-bar-green h-4 flex-shrink-0"></div>
-    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Grupos VIP — WhatsApp</h2>
+    <h2 class="text-[11px] lg:text-sm font-black text-vdc-text uppercase tracking-widest">Grupo VIP — WhatsApp</h2>
   </div>
 
   <a href="https://chat.whatsapp.com/LsBOhJUu09UG7BlNX1GhSZ" target="_blank" rel="noopener noreferrer"
-     class="rounded-xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
+     class="rounded-xl p-4 lg:p-6 flex items-center gap-3 hover:opacity-90 transition-opacity h-full"
      style="background: linear-gradient(135deg, #075E54, #128C7E);">
-    <span class="text-3xl flex-shrink-0">📱</span>
+    <span class="text-3xl lg:text-5xl flex-shrink-0">📱</span>
     <div class="flex-1">
-      <p class="text-white font-black text-xs leading-tight">Grupo VIP — Eletrônicos</p>
-      <p class="text-white/70 text-[10px] mt-0.5">Receba as melhores ofertas de eletrônicos direto no WhatsApp</p>
+      <p class="text-white font-black text-xs lg:text-base leading-tight">Grupo VIP — Eletrônicos</p>
+      <p class="text-white/70 text-[10px] lg:text-sm mt-0.5">Receba as melhores ofertas de eletrônicos direto no WhatsApp</p>
     </div>
-    <span class="ml-auto bg-vdc-wa text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex-shrink-0">ENTRAR</span>
+    <span class="ml-auto bg-vdc-wa text-white text-[10px] lg:text-xs font-bold px-3 py-1.5 rounded-lg flex-shrink-0">ENTRAR</span>
   </a>
 </section>
 
-      <section class="px-3 pt-4 pb-4">
+      <section class="px-3 lg:px-0 pt-4 lg:pt-0 pb-4">
   <div class="flex items-center gap-2 mb-3">
     <div class="section-bar h-4 flex-shrink-0"></div>
-    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Nos siga nas redes</h2>
+    <h2 class="text-[11px] lg:text-sm font-black text-vdc-text uppercase tracking-widest">Nos siga nas redes</h2>
   </div>
   <a href="https://www.instagram.com/vai_declick/" target="_blank" rel="noopener noreferrer"
-     class="vdc-gradient-ig rounded-xl p-3 flex items-center gap-3 hover:opacity-90 transition-opacity">
-    <i class="fa-brands fa-instagram text-white text-2xl flex-shrink-0"></i>
+     class="vdc-gradient-ig rounded-xl p-3 lg:p-6 flex items-center gap-3 hover:opacity-90 transition-opacity">
+    <i class="fa-brands fa-instagram text-white text-2xl lg:text-5xl flex-shrink-0"></i>
     <div>
-      <p class="text-white font-black text-xs">@vai_declick</p>
-      <p class="text-white/80 text-[10px]">Siga para ver stories de ofertas!</p>
+      <p class="text-white font-black text-xs lg:text-base">@vai_declick</p>
+      <p class="text-white/80 text-[10px] lg:text-sm">Siga para ver stories de ofertas!</p>
     </div>
-    <span class="ml-auto bg-white/25 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex-shrink-0">SEGUIR</span>
+    <span class="ml-auto bg-white/25 text-white text-[10px] lg:text-xs font-bold px-3 py-1.5 rounded-lg flex-shrink-0">SEGUIR</span>
   </a>
 </section>
+
+      </div>
 
     </main>
 
-    <footer class="bg-[#111] py-3 px-4 text-center">
-  <p class="text-white/40 text-[8px]">© 2026 Vai de Click · Todos os direitos reservados</p>
+    <footer class="bg-[#111] py-3 lg:py-5 px-4 lg:px-8 text-center">
+  <p class="text-white/40 text-[8px] lg:text-xs">© 2026 Vai de Click · Todos os direitos reservados</p>
 </footer>
 
   </div>

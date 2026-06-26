@@ -74,9 +74,9 @@
 </head>
 
 <body class="bg-vdc-bg antialiased min-h-screen overflow-x-hidden">
-  <div class="max-w-sm mx-auto flex flex-col min-h-screen">
+  <div class="max-w-sm mx-auto lg:max-w-6xl flex flex-col min-h-screen">
 
-    <nav class="vdc-gradient sticky top-0 z-50 px-4 py-2.5 flex items-center justify-between shadow-lg">
+    <nav class="vdc-gradient sticky top-0 z-50 px-4 lg:px-8 py-2.5 flex items-center justify-between shadow-lg">
   <div class="flex items-center gap-2.5">
     <a href="index.html"
        class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-1 hover:bg-white/30 transition-colors">
@@ -95,16 +95,16 @@
 
     <main class="flex-1 flex flex-col">
 
-      <section class="vdc-gradient-hero px-5 py-5 relative overflow-hidden">
-  <div class="absolute right-[-10px] top-[-10px] text-[72px] opacity-[0.08] select-none pointer-events-none" data-cat-icone>🛍️</div>
+      <section class="vdc-gradient-hero px-5 lg:px-10 py-5 lg:py-12 relative overflow-hidden">
+  <div class="absolute right-[-10px] top-[-10px] text-[72px] lg:text-[140px] opacity-[0.08] select-none pointer-events-none" data-cat-icone>🛍️</div>
   <div class="flex items-center gap-2 mb-1">
-    <span class="text-2xl" data-cat-icone>🛍️</span>
-    <h1 class="font-heading font-black text-white text-[18px] leading-tight" data-cat-nome>Categoria</h1>
+    <span class="text-2xl lg:text-4xl" data-cat-icone>🛍️</span>
+    <h1 class="font-heading font-black text-white text-[18px] lg:text-4xl leading-tight" data-cat-nome>Categoria</h1>
   </div>
-  <p class="text-white/70 text-[11px]">Todas as ofertas de <span data-cat-nome class="font-bold">Categoria</span></p>
+  <p class="text-white/70 text-[11px] lg:text-base">Todas as ofertas de <span data-cat-nome class="font-bold">Categoria</span></p>
 </section>
 
-      <div class="bg-white border-b border-gray-100 px-3 py-2 sticky top-[49px] z-40 flex gap-2">
+      <div class="bg-white border-b border-gray-100 px-3 lg:px-8 py-2 lg:py-3 sticky top-[49px] z-40 flex gap-2">
   <div class="flex-1 relative">
     <input id="busca-input" type="text" placeholder="Buscar produtos..."
            class="w-full bg-gray-50 border border-gray-200 rounded-lg text-xs px-3 py-2 pr-8 outline-none focus:border-vdc-red transition-colors">
@@ -118,23 +118,23 @@
   </select>
 </div>
 
-      <section id="secao-destaques" class="px-3 pt-4 pb-2">
+      <section id="secao-destaques" class="px-3 lg:px-8 pt-4 lg:pt-8 pb-2">
   <div class="flex items-center gap-2 mb-3">
     <div class="section-bar h-4 flex-shrink-0"></div>
-    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Destaques</h2>
+    <h2 class="text-[11px] lg:text-sm font-black text-vdc-text uppercase tracking-widest">Destaques</h2>
   </div>
-  <div id="destaques-grid" class="flex gap-2 overflow-x-auto pb-1"></div>
+  <div id="destaques-grid" class="flex gap-2 overflow-x-auto pb-1 lg:grid lg:grid-cols-6 lg:overflow-x-visible lg:pb-0 lg:gap-4"></div>
 </section>
 
-      <section class="px-3 pt-3 pb-2">
+      <section class="px-3 lg:px-8 pt-3 lg:pt-6 pb-2">
   <div class="flex items-center gap-2 mb-3">
     <div class="section-bar h-4 flex-shrink-0"></div>
-    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Todos os Produtos</h2>
+    <h2 class="text-[11px] lg:text-sm font-black text-vdc-text uppercase tracking-widest">Todos os Produtos</h2>
   </div>
-  <div id="grade-produtos" class="grid grid-cols-2 gap-2"></div>
+  <div id="grade-produtos" class="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4"></div>
 </section>
 
-      <div class="px-3 py-4 flex items-center justify-between gap-2">
+      <div class="px-3 lg:px-8 py-4 lg:py-6 flex items-center justify-between gap-2">
   <button id="btn-anterior" disabled
           class="flex-1 bg-gray-100 text-gray-500 text-xs font-bold py-2 px-3 rounded-lg disabled:opacity-40 hover:bg-gray-200 transition-colors">
     ← Anterior
@@ -148,8 +148,8 @@
 
     </main>
 
-    <footer class="bg-[#111] py-3 px-4 text-center">
-  <p class="text-white/40 text-[8px]">© 2026 Vai de Click · Todos os direitos reservados</p>
+    <footer class="bg-[#111] py-3 lg:py-5 px-4 lg:px-8 text-center">
+  <p class="text-white/40 text-[8px] lg:text-xs">© 2026 Vai de Click · Todos os direitos reservados</p>
 </footer>
 
   </div>
