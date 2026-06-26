@@ -52,15 +52,136 @@
 <body class="bg-vdc-bg antialiased min-h-screen overflow-x-hidden">
   <div class="max-w-sm mx-auto flex flex-col min-h-screen">
 
-    <!-- NAVBAR (Task 4) -->
+    <nav class="vdc-gradient sticky top-0 z-50 px-4 py-2.5 flex items-center justify-between shadow-lg">
+  <div class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg overflow-hidden border-2 border-white/30 flex-shrink-0">
+      <img src="logo.jpeg" alt="Vai de Click" class="w-full h-full object-cover">
+    </div>
+    <div>
+      <p class="font-heading font-black text-white text-sm leading-none tracking-tight">VAI DE CLICK</p>
+      <p class="text-white/70 text-[10px] leading-none mt-0.5">Ofertas &amp; Descontos</p>
+    </div>
+  </div>
+  <div class="flex items-center gap-2">
+    <a href="https://www.instagram.com/vai_declick/" target="_blank" rel="noopener noreferrer"
+       class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+      <i class="fa-brands fa-instagram text-white text-sm"></i>
+    </a>
+    <a href="#grupos-vip"
+       class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+      <i class="fa-brands fa-whatsapp text-white text-sm"></i>
+    </a>
+  </div>
+</nav>
 
     <main class="flex-1 flex flex-col">
 
-      <!-- HERO (Task 4) -->
+      <section class="vdc-gradient-hero px-5 py-8 relative overflow-hidden">
+  <div class="absolute right-[-16px] top-[-16px] text-[96px] opacity-[0.08] select-none pointer-events-none">🛍️</div>
+  <span class="inline-flex items-center gap-1.5 bg-white/25 text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-widest mb-3 animate-pulse">
+    🔥 NOVIDADES TODO DIA
+  </span>
+  <h1 class="font-heading font-black text-white text-[22px] leading-tight mb-1">
+    As melhores ofertas<br>estão aqui!
+  </h1>
+  <p class="text-white/80 text-xs mb-5">
+    Grupos exclusivos, lojas selecionadas e muito desconto 💸
+  </p>
+  <div class="flex items-center gap-3">
+    <a href="#grupos-vip"
+       class="flex items-center gap-1.5 bg-white text-vdc-red font-bold text-xs px-4 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+      📱 Grupos VIP
+    </a>
+    <a href="#nossas-lojas"
+       class="flex items-center gap-1.5 border border-white/50 text-white font-bold text-xs px-4 py-2 rounded-full hover:bg-white/10 transition-colors">
+      🛍️ Ver Lojas
+    </a>
+  </div>
+</section>
 
-      <!-- CHIPS (Task 4) -->
+      <div id="chips-bar" class="bg-white border-b border-gray-100 px-3 py-2 flex gap-2 overflow-x-auto">
+  <button data-target="#nossas-lojas"
+          class="chip chip-active flex-shrink-0 text-[10px] font-bold px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+    🌟 Todos
+  </button>
+  <button data-target="#destaque-eletronicos"
+          class="chip chip-inactive flex-shrink-0 text-[10px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+    💻 Eletrônicos
+  </button>
+  <button data-target="#destaque-casa"
+          class="chip chip-inactive flex-shrink-0 text-[10px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+    🏠 Casa
+  </button>
+  <button data-target="#destaque-moda"
+          class="chip chip-inactive flex-shrink-0 text-[10px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+    👗 Moda
+  </button>
+  <button data-target="#destaque-calcados"
+          class="chip chip-inactive flex-shrink-0 text-[10px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+    👟 Calçados
+  </button>
+  <button data-target="#destaque-pet"
+          class="chip chip-inactive flex-shrink-0 text-[10px] font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+    🐾 Pet
+  </button>
+</div>
 
-      <!-- LOJAS (Task 4) -->
+      <section id="nossas-lojas" class="px-3 pt-4 pb-2">
+  <div class="flex items-center gap-2 mb-3">
+    <div class="section-bar h-4 flex-shrink-0"></div>
+    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Nossas Lojas</h2>
+  </div>
+  <div class="grid grid-cols-3 gap-2">
+
+    <a href="categoria.html?cat=eletronicos"
+       class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-vdc-red hover:shadow-md transition-shadow">
+      <span class="text-2xl mb-1">💻</span>
+      <p class="text-[10px] font-bold text-vdc-text leading-tight mb-0.5">Eletrônicos</p>
+      <p class="text-[8px] text-vdc-muted leading-tight mb-2">Smartphones, TVs...</p>
+      <span class="card-btn text-white text-[8px] font-bold px-2 py-1 rounded-md w-full text-center">VER LOJA →</span>
+    </a>
+
+    <a href="categoria.html?cat=casa"
+       class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-purple-500 hover:shadow-md transition-shadow">
+      <span class="text-2xl mb-1">🏠</span>
+      <p class="text-[10px] font-bold text-vdc-text leading-tight mb-0.5">Casa & Decor</p>
+      <p class="text-[8px] text-vdc-muted leading-tight mb-2">Móveis, utensílios...</p>
+      <span class="card-btn text-white text-[8px] font-bold px-2 py-1 rounded-md w-full text-center">VER LOJA →</span>
+    </a>
+
+    <a href="categoria.html?cat=moda"
+       class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-vdc-purple hover:shadow-md transition-shadow">
+      <span class="text-2xl mb-1">👗</span>
+      <p class="text-[10px] font-bold text-vdc-text leading-tight mb-0.5">Moda</p>
+      <p class="text-[8px] text-vdc-muted leading-tight mb-2">Masculino, Feminino...</p>
+      <span class="card-btn text-white text-[8px] font-bold px-2 py-1 rounded-md w-full text-center">VER LOJA →</span>
+    </a>
+
+    <a href="categoria.html?cat=calcados"
+       class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-vdc-red hover:shadow-md transition-shadow">
+      <span class="text-2xl mb-1">👟</span>
+      <p class="text-[10px] font-bold text-vdc-text leading-tight mb-0.5">Calçados</p>
+      <p class="text-[8px] text-vdc-muted leading-tight mb-2">Fem, Masc, Inf...</p>
+      <span class="card-btn text-white text-[8px] font-bold px-2 py-1 rounded-md w-full text-center">VER LOJA →</span>
+    </a>
+
+    <a href="categoria.html?cat=pet"
+       class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-purple-500 hover:shadow-md transition-shadow">
+      <span class="text-2xl mb-1">🐾</span>
+      <p class="text-[10px] font-bold text-vdc-text leading-tight mb-0.5">Mundo Pet</p>
+      <p class="text-[8px] text-vdc-muted leading-tight mb-2">Rações, brinquedos...</p>
+      <span class="card-btn text-white text-[8px] font-bold px-2 py-1 rounded-md w-full text-center">VER LOJA →</span>
+    </a>
+
+    <div class="bg-vdc-card rounded-xl p-2.5 flex flex-col items-center text-center shadow-sm border-t-[3px] border-gray-200 opacity-60">
+      <span class="text-2xl mb-1">🛍️</span>
+      <p class="text-[10px] font-bold text-vdc-text leading-tight mb-0.5">Em breve</p>
+      <p class="text-[8px] text-vdc-muted leading-tight mb-2">Nova categoria</p>
+      <span class="bg-[#e5e7eb] text-[#9ca3af] text-[8px] font-bold px-2 py-1 rounded-md w-full text-center cursor-not-allowed">EM BREVE</span>
+    </div>
+
+  </div>
+</section>
 
       <!-- DESTAQUES (Task 6) -->
 
