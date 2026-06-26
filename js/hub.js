@@ -21,10 +21,10 @@
   }
 
   function produtoCard(produto, config) {
-    var preco = formatarPreco(produto.price_value);
+    var preco = formatarPreco(produto.preco || produto.price_value);
     var precoAntigo = formatarPreco(produto.price_old_value);
-    var url = escapar(produto.url || produto.link || '#');
-    var titulo = escapar(produto.title || produto.name || '');
+    var url = escapar(produto.link || produto.url || '#');
+    var titulo = escapar(produto.nome || produto.title || produto.name || '');
     var imgSrc = produto.image || produto.thumbnail || '';
 
     var imgHtml = imgSrc

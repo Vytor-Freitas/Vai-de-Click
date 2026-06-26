@@ -50,10 +50,10 @@
   }
 
   function cardHoriz(p) {
-    var preco = formatarPreco(p.price_value);
+    var preco = formatarPreco(p.preco || p.price_value);
     var precoAntigo = formatarPreco(p.price_old_value);
-    var url = escapar(p.url || p.link || '#');
-    var titulo = escapar(p.title || p.name || '');
+    var url = escapar(p.link || p.url || '#');
+    var titulo = escapar(p.nome || p.title || p.name || '');
     var imgSrc = p.image || p.thumbnail || '';
     var imgHtml = imgSrc
       ? '<img src="' + escapar(imgSrc) + '" alt="" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">'
@@ -68,10 +68,10 @@
   }
 
   function cardGrade(p) {
-    var preco = formatarPreco(p.price_value);
+    var preco = formatarPreco(p.preco || p.price_value);
     var precoAntigo = formatarPreco(p.price_old_value);
-    var url = escapar(p.url || p.link || '#');
-    var titulo = escapar(p.title || p.name || '');
+    var url = escapar(p.link || p.url || '#');
+    var titulo = escapar(p.nome || p.title || p.name || '');
     var imgSrc = p.image || p.thumbnail || '';
     var imgHtml = imgSrc
       ? '<img src="' + escapar(imgSrc) + '" alt="" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy">'
