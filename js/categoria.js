@@ -4,37 +4,22 @@
   var config = (window.VDC_CONFIG && window.VDC_CONFIG.categorias[slug]) ||
     { nome: slug, icone: '🛍️', categorias: [] };
 
+  var REFRESH_INTERVAL = 6 * 60 * 60 * 1000; // refetch a cada 6h
+  var MAX_PRODUTOS = 200;
+  var PER_PAGE = 20;
+  var CACHE_KEY = 'vdc_cat_' + slug;
+
+  var todosProdutos = [];
   var paginaAtual = 1;
   var buscaAtual = '';
   var ordenacaoAtual = 'updated_at';
   var carregando = false;
-  var PER_PAGE = 20;
   var destaquesCarregados = false;
-  var CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas em ms
-  var CACHE_KEY = 'vdc_cat_' + slug;
 
-  function lerCache() {
-    try {
-      var raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      var obj = JSON.parse(raw);
-      if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(CACHE_KEY); return null; }
-      return obj.data;
-    } catch (e) { return null; }
-  }
-
-  function salvarCache(data) {
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
-  }
-
-  function ehCargaInicial() {
-    return paginaAtual === 1 && buscaAtual === '' && ordenacaoAtual === 'updated_at';
-  }
-
+  // ─── SEO ────────────────────────────────────────────────────────────────────
   document.title = 'Vai de Click — ' + config.nome + ' | Ofertas e Descontos';
   document.querySelectorAll('[data-cat-nome]').forEach(function (el) { el.textContent = config.nome; });
   document.querySelectorAll('[data-cat-icone]').forEach(function (el) { el.textContent = config.icone; });
-
   var metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute('content', 'As melhores ofertas de ' + config.nome + ' com os menores preços. Atualizado diariamente no Vai de Click.');
   var ogTitle = document.querySelector('meta[property="og:title"]');
@@ -42,6 +27,28 @@
   var ogDesc = document.querySelector('meta[property="og:description"]');
   if (ogDesc) ogDesc.setAttribute('content', 'As melhores ofertas de ' + config.nome + ' com os menores preços. Atualizado diariamente no Vai de Click.');
 
+  // ─── Cache ──────────────────────────────────────────────────────────────────
+  function lerCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function salvarCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data }));
+    } catch (e) {}
+  }
+
+  function mesclar(antigos, novos) {
+    var mapa = {};
+    (antigos || []).forEach(function (p) { mapa[p.id] = p; });
+    (novos || []).forEach(function (p) { mapa[p.id] = p; });
+    return Object.keys(mapa).map(function (id) { return mapa[id]; }).slice(0, MAX_PRODUTOS);
+  }
+
+  // ─── Helpers ────────────────────────────────────────────────────────────────
   function escapar(str) {
     return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
@@ -105,24 +112,42 @@
       '<div class="mt-auto card-btn text-white text-[9px] lg:text-[10px] font-bold px-2 py-1.5 rounded-md text-center">VER OFERTA</div></a>';
   }
 
-  function renderizarProdutos(produtos, destaques, secaoDestaques, grade, prevBtn, nextBtn, pageInfo) {
-    if (!destaquesCarregados && destaques) {
-      destaquesCarregados = true;
-      if (secaoDestaques) secaoDestaques.style.display = buscaAtual ? 'none' : '';
-      destaques.innerHTML = produtos.length
-        ? produtos.slice(0, 3).map(cardHoriz).join('')
-        : '<p class="text-[10px] text-gray-400 py-2">Nenhum destaque</p>';
+  // ─── Ordenação local ────────────────────────────────────────────────────────
+  function ordenarLocal(lista, ordem) {
+    var copia = lista.slice();
+    if (ordem === 'price_value:asc') {
+      copia.sort(function (a, b) { return parseFloat(a.preco || 0) - parseFloat(b.preco || 0); });
+    } else if (ordem === 'price_value:desc') {
+      copia.sort(function (a, b) { return parseFloat(b.preco || 0) - parseFloat(a.preco || 0); });
     }
+    return copia;
+  }
+
+  // ─── Renderização ────────────────────────────────────────────────────────────
+  function renderizarGrade(produtos) {
+    var grade = document.getElementById('grade-produtos');
+    var prevBtn = document.getElementById('btn-anterior');
+    var nextBtn = document.getElementById('btn-proximo');
+    var pageInfo = document.getElementById('pagina-info');
+
+    var total = produtos.length;
+    var inicio = (paginaAtual - 1) * PER_PAGE;
+    var pagina = produtos.slice(inicio, inicio + PER_PAGE);
+
     if (grade) {
-      grade.innerHTML = produtos.length
-        ? produtos.map(cardGrade).join('')
+      grade.innerHTML = pagina.length
+        ? pagina.map(cardGrade).join('')
         : '<p class="col-span-2 lg:col-span-4 text-center text-[11px] text-gray-400 py-8">Nenhum produto encontrado</p>';
     }
     if (prevBtn) prevBtn.disabled = paginaAtual <= 1;
-    if (nextBtn) nextBtn.disabled = produtos.length < PER_PAGE;
-    if (pageInfo) pageInfo.textContent = 'Página ' + paginaAtual;
+    if (nextBtn) nextBtn.disabled = inicio + PER_PAGE >= total;
+    if (pageInfo) {
+      var totalPaginas = Math.max(1, Math.ceil(total / PER_PAGE));
+      pageInfo.textContent = 'Página ' + paginaAtual + ' / ' + totalPaginas + ' (' + total + ' produtos)';
+    }
   }
 
+  // ─── Carregamento ────────────────────────────────────────────────────────────
   function carregarProdutos() {
     if (carregando) return;
     carregando = true;
@@ -130,51 +155,80 @@
     var destaques = document.getElementById('destaques-grid');
     var secaoDestaques = document.getElementById('secao-destaques');
     var grade = document.getElementById('grade-produtos');
-    var prevBtn = document.getElementById('btn-anterior');
-    var nextBtn = document.getElementById('btn-proximo');
-    var pageInfo = document.getElementById('pagina-info');
 
-    // Serve do cache imediatamente na carga inicial
-    if (ehCargaInicial()) {
-      var cached = lerCache();
-      if (cached) {
-        renderizarProdutos(cached, destaques, secaoDestaques, grade, prevBtn, nextBtn, pageInfo);
-        carregando = false;
-        return;
-      }
+    // Busca ativa: vai direto à API (sem acumular)
+    if (buscaAtual) {
+      if (secaoDestaques) secaoDestaques.style.display = 'none';
+      if (grade) grade.innerHTML = skeletonGrade();
+      fetch('/api/produtos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: slug, categorias: config.categorias, ordenacao: ordenacaoAtual, page: 1, buscar: buscaAtual }),
+      })
+      .then(function (resp) { return resp.json(); })
+      .then(function (data) {
+        var resultados = Array.isArray(data) ? data : (data.data || data.produtos || []);
+        renderizarGrade(ordenarLocal(resultados, ordenacaoAtual));
+      })
+      .catch(function () {
+        if (grade) grade.innerHTML = '<p class="col-span-2 lg:col-span-4 text-center text-[11px] text-red-400 py-8">Erro ao carregar produtos</p>';
+      })
+      .then(function () { carregando = false; });
+      return;
     }
 
-    if (!destaquesCarregados && destaques) destaques.innerHTML = skeletonHoriz();
-    if (grade) grade.innerHTML = skeletonGrade();
+    // Sem busca: usa produtos acumulados em cache
+    if (secaoDestaques) secaoDestaques.style.display = '';
 
+    var cache = lerCache();
+    var precisaRefresh = !cache || (Date.now() - cache.ts) > REFRESH_INTERVAL;
+
+    // Exibe do cache imediatamente se disponível
+    if (cache && cache.data && cache.data.length) {
+      todosProdutos = cache.data;
+      if (!destaquesCarregados && destaques) {
+        destaquesCarregados = true;
+        destaques.innerHTML = todosProdutos.slice(0, 3).map(cardHoriz).join('');
+      }
+      renderizarGrade(ordenarLocal(todosProdutos, ordenacaoAtual));
+      if (!precisaRefresh) { carregando = false; return; }
+    } else {
+      if (!destaquesCarregados && destaques) destaques.innerHTML = skeletonHoriz();
+      if (grade) grade.innerHTML = skeletonGrade();
+    }
+
+    // Busca novos produtos e acumula
     fetch('/api/produtos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        slug: slug,
-        categorias: config.categorias,
-        ordenacao: ordenacaoAtual,
-        page: paginaAtual,
-        buscar: buscaAtual || undefined,
-      }),
+      body: JSON.stringify({ slug: slug, categorias: config.categorias, ordenacao: 'updated_at', page: 1 }),
     })
     .then(function (resp) { return resp.json(); })
     .then(function (data) {
-      var produtos = Array.isArray(data) ? data : (data.data || data.produtos || []);
-      if (ehCargaInicial() && produtos.length) salvarCache(produtos);
-      renderizarProdutos(produtos, destaques, secaoDestaques, grade, prevBtn, nextBtn, pageInfo);
+      var novos = Array.isArray(data) ? data : (data.data || data.produtos || []);
+      todosProdutos = mesclar(cache ? cache.data : [], novos);
+      if (todosProdutos.length) salvarCache(todosProdutos);
+      if (!destaquesCarregados && destaques) {
+        destaquesCarregados = true;
+        destaques.innerHTML = todosProdutos.length
+          ? todosProdutos.slice(0, 3).map(cardHoriz).join('')
+          : '<p class="text-[10px] text-gray-400 py-2">Nenhum destaque</p>';
+      }
+      renderizarGrade(ordenarLocal(todosProdutos, ordenacaoAtual));
     })
     .catch(function () {
       if (!destaquesCarregados && destaques) {
         destaquesCarregados = true;
         destaques.innerHTML = '';
       }
-      if (grade) grade.innerHTML =
-        '<p class="col-span-2 lg:col-span-4 text-center text-[11px] text-red-400 py-8">Erro ao carregar produtos</p>';
+      if (!todosProdutos.length && grade) {
+        grade.innerHTML = '<p class="col-span-2 lg:col-span-4 text-center text-[11px] text-red-400 py-8">Erro ao carregar produtos</p>';
+      }
     })
     .then(function () { carregando = false; });
   }
 
+  // ─── Eventos ─────────────────────────────────────────────────────────────────
   var inputBusca = document.getElementById('busca-input');
   if (inputBusca) {
     var debounceTimer;
@@ -183,8 +237,6 @@
       debounceTimer = setTimeout(function () {
         buscaAtual = inputBusca.value.trim();
         paginaAtual = 1;
-        var secaoDestaques = document.getElementById('secao-destaques');
-        if (secaoDestaques) secaoDestaques.style.display = buscaAtual ? 'none' : '';
         carregarProdutos();
       }, 400);
     });
@@ -195,7 +247,11 @@
     selectOrdenacao.addEventListener('change', function () {
       ordenacaoAtual = selectOrdenacao.value;
       paginaAtual = 1;
-      carregarProdutos();
+      if (buscaAtual) {
+        carregarProdutos();
+      } else {
+        renderizarGrade(ordenarLocal(todosProdutos, ordenacaoAtual));
+      }
     });
   }
 
@@ -205,7 +261,7 @@
     prevBtn.addEventListener('click', function () {
       if (paginaAtual > 1 && !carregando) {
         paginaAtual--;
-        carregarProdutos();
+        renderizarGrade(ordenarLocal(buscaAtual ? [] : todosProdutos, ordenacaoAtual));
         var grade = document.getElementById('grade-produtos');
         if (grade) grade.scrollIntoView({ behavior: 'smooth' });
       }
@@ -215,7 +271,7 @@
     nextBtn.addEventListener('click', function () {
       if (!carregando) {
         paginaAtual++;
-        carregarProdutos();
+        renderizarGrade(ordenarLocal(buscaAtual ? [] : todosProdutos, ordenacaoAtual));
         var grade = document.getElementById('grade-produtos');
         if (grade) grade.scrollIntoView({ behavior: 'smooth' });
       }

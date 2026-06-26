@@ -1,19 +1,26 @@
 (function () {
   var SLUGS = Object.keys(window.VDC_CONFIG.categorias);
-  var CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas em ms
+  var REFRESH_INTERVAL = 6 * 60 * 60 * 1000; // refetch a cada 6h
+  var MAX_PRODUTOS = 200;
 
-  function lerCache(chave) {
+  function lerCache(slug) {
     try {
-      var raw = localStorage.getItem(chave);
-      if (!raw) return null;
-      var obj = JSON.parse(raw);
-      if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(chave); return null; }
-      return obj.data;
+      var raw = localStorage.getItem('vdc_hub_' + slug);
+      return raw ? JSON.parse(raw) : null;
     } catch (e) { return null; }
   }
 
-  function salvarCache(chave, data) {
-    try { localStorage.setItem(chave, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
+  function salvarCache(slug, data) {
+    try {
+      localStorage.setItem('vdc_hub_' + slug, JSON.stringify({ ts: Date.now(), data: data }));
+    } catch (e) {}
+  }
+
+  function mesclar(antigos, novos) {
+    var mapa = {};
+    (antigos || []).forEach(function (p) { mapa[p.id] = p; });
+    (novos || []).forEach(function (p) { mapa[p.id] = p; });
+    return Object.keys(mapa).map(function (id) { return mapa[id]; }).slice(0, MAX_PRODUTOS);
   }
 
   function skeletonCards() {
@@ -57,7 +64,7 @@
   }
 
   function renderizarProdutos(produtos, container, config) {
-    if (!produtos.length) {
+    if (!produtos || !produtos.length) {
       container.innerHTML = '<p class="text-[10px] text-gray-400 px-1 py-2">Nenhum produto no momento</p>';
       return;
     }
@@ -71,33 +78,33 @@
     var container = document.getElementById('produtos-' + slug);
     if (!container) return Promise.resolve();
 
-    // Serve do cache imediatamente se disponível
-    var cached = lerCache('vdc_hub_' + slug);
-    if (cached) {
-      renderizarProdutos(cached, container, config);
-      return Promise.resolve();
+    var cache = lerCache(slug);
+
+    if (cache && cache.data && cache.data.length) {
+      renderizarProdutos(cache.data, container, config);
+    } else {
+      container.innerHTML = skeletonCards();
     }
 
-    container.innerHTML = skeletonCards();
+    var precisaRefresh = !cache || (Date.now() - cache.ts) > REFRESH_INTERVAL;
+    if (!precisaRefresh) return Promise.resolve();
 
     return fetch('/api/produtos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        slug: slug,
-        categorias: config.categorias,
-        ordenacao: 'updated_at',
-        page: 1,
-      }),
+      body: JSON.stringify({ slug: slug, categorias: config.categorias, ordenacao: 'updated_at', page: 1 }),
     })
     .then(function (resp) { return resp.json(); })
     .then(function (data) {
-      var produtos = Array.isArray(data) ? data : (data.data || data.produtos || []);
-      if (produtos.length) salvarCache('vdc_hub_' + slug, produtos);
-      renderizarProdutos(produtos, container, config);
+      var novos = Array.isArray(data) ? data : (data.data || data.produtos || []);
+      var acumulados = mesclar(cache ? cache.data : [], novos);
+      salvarCache(slug, acumulados);
+      renderizarProdutos(acumulados, container, config);
     })
     .catch(function () {
-      container.innerHTML = '<p class="text-[10px] text-red-400 px-1 py-2">Não foi possível carregar</p>';
+      if (!cache || !cache.data || !cache.data.length) {
+        container.innerHTML = '<p class="text-[10px] text-red-400 px-1 py-2">Não foi possível carregar</p>';
+      }
     });
   }
 
