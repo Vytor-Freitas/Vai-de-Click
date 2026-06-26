@@ -1,6 +1,6 @@
 (function () {
   var SLUGS = Object.keys(window.VDC_CONFIG.categorias);
-  var REFRESH_INTERVAL = 6 * 60 * 60 * 1000; // refetch a cada 6h
+  var REFRESH_INTERVAL = 5 * 60 * 1000; // refetch a cada 5min
   var MAX_PRODUTOS = 200;
 
   function lerCache(slug) {

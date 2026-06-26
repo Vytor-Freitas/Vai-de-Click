@@ -4,7 +4,7 @@
   var config = (window.VDC_CONFIG && window.VDC_CONFIG.categorias[slug]) ||
     { nome: slug, icone: '🛍️', categorias: [] };
 
-  var REFRESH_INTERVAL = 6 * 60 * 60 * 1000; // refetch a cada 6h
+  var REFRESH_INTERVAL = 5 * 60 * 1000; // refetch a cada 5min
   var MAX_PRODUTOS = 200;
   var PER_PAGE = 20;
   var CACHE_KEY = 'vdc_cat_' + slug;
