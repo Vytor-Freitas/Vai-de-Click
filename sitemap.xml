@@ -10,24 +10,4 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://vaideclick.com/categoria.html?cat=casa</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vaideclick.com/categoria.html?cat=moda</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vaideclick.com/categoria.html?cat=calcados</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vaideclick.com/categoria.html?cat=pet</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
 </urlset>
