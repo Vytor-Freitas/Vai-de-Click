@@ -76,9 +76,9 @@ A página é mobile-first, largura máxima de `390px` centralizada, com scroll v
 - Fundo branco, borda inferior cinza
 - Chips scrolláveis horizontalmente (overflow-x: auto, sem scrollbar visível)
 - Chips: "🌟 Todos", "💻 Eletrônicos", "🏠 Casa", "👗 Moda", "👟 Calçados", "🐾 Pet"
-- Chip ativo: fundo `vdc-gradient`, texto branco
+- Chip ativo: fundo `vdc-gradient`, texto branco. Estado inicial: "🌟 Todos" ativo
 - Chip inativo: fundo `#f5f5f5`, texto cinza
-- Comportamento: clique nos chips faz scroll suave até o card da categoria correspondente (scroll-into-view via JS)
+- Comportamento: clique em categoria faz scroll suave até o card correspondente no grid e marca aquele chip como ativo. Clique em "Todos" reseta todos os chips para inativo (exceto "Todos") e faz scroll até o topo da seção de lojas
 
 ### 5.4 Grid de Lojas ("Nossas Lojas")
 - Título de seção: "Nossas Lojas" com barra vertical gradiente à esquerda
@@ -100,7 +100,7 @@ A página é mobile-first, largura máxima de `390px` centralizada, com scroll v
 | Moda | 👗 | `https://moda.vaideclick.com/` |
 | Calçados | 👟 | `https://calcados.vaideclick.com/` |
 | Mundo Pet | 🐾 | `https://pets.vaideclick.com/` |
-| Em breve | 🛍️ | — (botão desabilitado) |
+| Em breve | 🛍️ | — (botão com fundo `#e5e7eb`, texto `#9ca3af`, cursor `not-allowed`, sem link) |
 
 ### 5.5 Grupos VIP — WhatsApp
 - Título de seção: "Grupos VIP — WhatsApp" com barra vertical verde
@@ -125,7 +125,7 @@ A página é mobile-first, largura máxima de `390px` centralizada, com scroll v
 
 ### 5.7 Footer
 - Fundo `#111` (preto suave)
-- Texto: "© 2025 Vai de Click · Todos os direitos reservados"
+- Texto: "© 2026 Vai de Click · Todos os direitos reservados"
 - Cor: branco com 40% de opacidade, 8px
 
 ---
