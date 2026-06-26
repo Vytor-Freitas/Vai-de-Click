@@ -1,5 +1,20 @@
 (function () {
   var SLUGS = Object.keys(window.VDC_CONFIG.categorias);
+  var CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas em ms
+
+  function lerCache(chave) {
+    try {
+      var raw = localStorage.getItem(chave);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(chave); return null; }
+      return obj.data;
+    } catch (e) { return null; }
+  }
+
+  function salvarCache(chave, data) {
+    try { localStorage.setItem(chave, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
+  }
 
   function skeletonCards() {
     var card = '<div class="flex-shrink-0 w-32 bg-white rounded-xl p-2 animate-pulse shadow-sm">' +
@@ -41,10 +56,27 @@
       '</a>';
   }
 
+  function renderizarProdutos(produtos, container, config) {
+    if (!produtos.length) {
+      container.innerHTML = '<p class="text-[10px] text-gray-400 px-1 py-2">Nenhum produto no momento</p>';
+      return;
+    }
+    container.innerHTML = produtos.slice(0, 3).map(function (p) {
+      return produtoCard(p, config);
+    }).join('');
+  }
+
   function carregarCategoria(slug) {
     var config = window.VDC_CONFIG.categorias[slug];
     var container = document.getElementById('produtos-' + slug);
     if (!container) return Promise.resolve();
+
+    // Serve do cache imediatamente se disponível
+    var cached = lerCache('vdc_hub_' + slug);
+    if (cached) {
+      renderizarProdutos(cached, container, config);
+      return Promise.resolve();
+    }
 
     container.innerHTML = skeletonCards();
 
@@ -61,13 +93,8 @@
     .then(function (resp) { return resp.json(); })
     .then(function (data) {
       var produtos = Array.isArray(data) ? data : (data.data || data.produtos || []);
-      if (!produtos.length) {
-        container.innerHTML = '<p class="text-[10px] text-gray-400 px-1 py-2">Nenhum produto no momento</p>';
-        return;
-      }
-      container.innerHTML = produtos.slice(0, 3).map(function (p) {
-        return produtoCard(p, config);
-      }).join('');
+      if (produtos.length) salvarCache('vdc_hub_' + slug, produtos);
+      renderizarProdutos(produtos, container, config);
     })
     .catch(function () {
       container.innerHTML = '<p class="text-[10px] text-red-400 px-1 py-2">Não foi possível carregar</p>';

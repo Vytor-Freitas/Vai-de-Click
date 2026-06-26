@@ -10,6 +10,26 @@
   var carregando = false;
   var PER_PAGE = 20;
   var destaquesCarregados = false;
+  var CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas em ms
+  var CACHE_KEY = 'vdc_cat_' + slug;
+
+  function lerCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(CACHE_KEY); return null; }
+      return obj.data;
+    } catch (e) { return null; }
+  }
+
+  function salvarCache(data) {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
+  }
+
+  function ehCargaInicial() {
+    return paginaAtual === 1 && buscaAtual === '' && ordenacaoAtual === 'updated_at';
+  }
 
   document.title = 'Vai de Click — ' + config.nome + ' | Ofertas e Descontos';
   document.querySelectorAll('[data-cat-nome]').forEach(function (el) { el.textContent = config.nome; });
@@ -85,6 +105,24 @@
       '<div class="mt-auto card-btn text-white text-[9px] lg:text-[10px] font-bold px-2 py-1.5 rounded-md text-center">VER OFERTA</div></a>';
   }
 
+  function renderizarProdutos(produtos, destaques, secaoDestaques, grade, prevBtn, nextBtn, pageInfo) {
+    if (!destaquesCarregados && destaques) {
+      destaquesCarregados = true;
+      if (secaoDestaques) secaoDestaques.style.display = buscaAtual ? 'none' : '';
+      destaques.innerHTML = produtos.length
+        ? produtos.slice(0, 3).map(cardHoriz).join('')
+        : '<p class="text-[10px] text-gray-400 py-2">Nenhum destaque</p>';
+    }
+    if (grade) {
+      grade.innerHTML = produtos.length
+        ? produtos.map(cardGrade).join('')
+        : '<p class="col-span-2 lg:col-span-4 text-center text-[11px] text-gray-400 py-8">Nenhum produto encontrado</p>';
+    }
+    if (prevBtn) prevBtn.disabled = paginaAtual <= 1;
+    if (nextBtn) nextBtn.disabled = produtos.length < PER_PAGE;
+    if (pageInfo) pageInfo.textContent = 'Página ' + paginaAtual;
+  }
+
   function carregarProdutos() {
     if (carregando) return;
     carregando = true;
@@ -95,6 +133,16 @@
     var prevBtn = document.getElementById('btn-anterior');
     var nextBtn = document.getElementById('btn-proximo');
     var pageInfo = document.getElementById('pagina-info');
+
+    // Serve do cache imediatamente na carga inicial
+    if (ehCargaInicial()) {
+      var cached = lerCache();
+      if (cached) {
+        renderizarProdutos(cached, destaques, secaoDestaques, grade, prevBtn, nextBtn, pageInfo);
+        carregando = false;
+        return;
+      }
+    }
 
     if (!destaquesCarregados && destaques) destaques.innerHTML = skeletonHoriz();
     if (grade) grade.innerHTML = skeletonGrade();
@@ -113,24 +161,8 @@
     .then(function (resp) { return resp.json(); })
     .then(function (data) {
       var produtos = Array.isArray(data) ? data : (data.data || data.produtos || []);
-
-      if (!destaquesCarregados && destaques) {
-        destaquesCarregados = true;
-        if (secaoDestaques) secaoDestaques.style.display = buscaAtual ? 'none' : '';
-        destaques.innerHTML = produtos.length
-          ? produtos.slice(0, 3).map(cardHoriz).join('')
-          : '<p class="text-[10px] text-gray-400 py-2">Nenhum destaque</p>';
-      }
-
-      if (grade) {
-        grade.innerHTML = produtos.length
-          ? produtos.map(cardGrade).join('')
-          : '<p class="col-span-2 text-center text-[11px] text-gray-400 py-8">Nenhum produto encontrado</p>';
-      }
-
-      if (prevBtn) prevBtn.disabled = paginaAtual <= 1;
-      if (nextBtn) nextBtn.disabled = produtos.length < PER_PAGE;
-      if (pageInfo) pageInfo.textContent = 'Página ' + paginaAtual;
+      if (ehCargaInicial() && produtos.length) salvarCache(produtos);
+      renderizarProdutos(produtos, destaques, secaoDestaques, grade, prevBtn, nextBtn, pageInfo);
     })
     .catch(function () {
       if (!destaquesCarregados && destaques) {
@@ -138,7 +170,7 @@
         destaques.innerHTML = '';
       }
       if (grade) grade.innerHTML =
-        '<p class="col-span-2 text-center text-[11px] text-red-400 py-8">Erro ao carregar produtos</p>';
+        '<p class="col-span-2 lg:col-span-4 text-center text-[11px] text-red-400 py-8">Erro ao carregar produtos</p>';
     })
     .then(function () { carregando = false; });
   }
