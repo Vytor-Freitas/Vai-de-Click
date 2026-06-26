@@ -11,9 +11,16 @@
   var PER_PAGE = 20;
   var destaquesCarregados = false;
 
-  document.title = 'Vai de Click — ' + config.nome;
+  document.title = 'Vai de Click — ' + config.nome + ' | Ofertas e Descontos';
   document.querySelectorAll('[data-cat-nome]').forEach(function (el) { el.textContent = config.nome; });
   document.querySelectorAll('[data-cat-icone]').forEach(function (el) { el.textContent = config.icone; });
+
+  var metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', 'As melhores ofertas de ' + config.nome + ' com os menores preços. Atualizado diariamente no Vai de Click.');
+  var ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', 'Vai de Click — ' + config.nome);
+  var ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute('content', 'As melhores ofertas de ' + config.nome + ' com os menores preços. Atualizado diariamente no Vai de Click.');
 
   function escapar(str) {
     return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
