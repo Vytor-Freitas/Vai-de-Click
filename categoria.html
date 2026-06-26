@@ -47,23 +47,81 @@
 <body class="bg-vdc-bg antialiased min-h-screen overflow-x-hidden">
   <div class="max-w-sm mx-auto flex flex-col min-h-screen">
 
-    <!-- NAVBAR (Task 8) -->
+    <nav class="vdc-gradient sticky top-0 z-50 px-4 py-2.5 flex items-center justify-between shadow-lg">
+  <div class="flex items-center gap-2.5">
+    <a href="index.html"
+       class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-1 hover:bg-white/30 transition-colors">
+      <i class="fa-solid fa-arrow-left text-white text-sm"></i>
+    </a>
+    <div>
+      <p class="font-heading font-black text-white text-sm leading-none tracking-tight">VAI DE CLICK</p>
+      <p class="text-white/70 text-[10px] leading-none mt-0.5" data-cat-nome>Categoria</p>
+    </div>
+  </div>
+  <a href="https://www.instagram.com/vai_declick/" target="_blank" rel="noopener noreferrer"
+     class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+    <i class="fa-brands fa-instagram text-white text-sm"></i>
+  </a>
+</nav>
 
     <main class="flex-1 flex flex-col">
 
-      <!-- HERO COMPACTO (Task 8) -->
+      <section class="vdc-gradient-hero px-5 py-5 relative overflow-hidden">
+  <div class="absolute right-[-10px] top-[-10px] text-[72px] opacity-[0.08] select-none pointer-events-none" data-cat-icone>🛍️</div>
+  <div class="flex items-center gap-2 mb-1">
+    <span class="text-2xl" data-cat-icone>🛍️</span>
+    <h1 class="font-heading font-black text-white text-[18px] leading-tight" data-cat-nome>Categoria</h1>
+  </div>
+  <p class="text-white/70 text-[11px]">Todas as ofertas de <span data-cat-nome class="font-bold">Categoria</span></p>
+</section>
 
-      <!-- FILTROS (Task 8) -->
+      <div class="bg-white border-b border-gray-100 px-3 py-2 sticky top-[49px] z-40 flex gap-2">
+  <div class="flex-1 relative">
+    <input id="busca-input" type="text" placeholder="Buscar produtos..."
+           class="w-full bg-gray-50 border border-gray-200 rounded-lg text-xs px-3 py-2 pr-8 outline-none focus:border-vdc-red transition-colors">
+    <i class="fa-solid fa-search absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+  </div>
+  <select id="select-ordenacao"
+          class="bg-gray-50 border border-gray-200 rounded-lg text-xs px-2 py-2 outline-none focus:border-vdc-red transition-colors">
+    <option value="updated_at">Mais recentes</option>
+    <option value="price_value:asc">Menor preço</option>
+    <option value="price_value:desc">Maior preço</option>
+  </select>
+</div>
 
-      <!-- DESTAQUES DA CATEGORIA (Task 8) -->
+      <section id="secao-destaques" class="px-3 pt-4 pb-2">
+  <div class="flex items-center gap-2 mb-3">
+    <div class="section-bar h-4 flex-shrink-0"></div>
+    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Destaques</h2>
+  </div>
+  <div id="destaques-grid" class="flex gap-2 overflow-x-auto pb-1"></div>
+</section>
 
-      <!-- GRADE DE PRODUTOS (Task 8) -->
+      <section class="px-3 pt-3 pb-2">
+  <div class="flex items-center gap-2 mb-3">
+    <div class="section-bar h-4 flex-shrink-0"></div>
+    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Todos os Produtos</h2>
+  </div>
+  <div id="grade-produtos" class="grid grid-cols-2 gap-2"></div>
+</section>
 
-      <!-- PAGINAÇÃO (Task 8) -->
+      <div class="px-3 py-4 flex items-center justify-between gap-2">
+  <button id="btn-anterior" disabled
+          class="flex-1 bg-gray-100 text-gray-500 text-xs font-bold py-2 px-3 rounded-lg disabled:opacity-40 hover:bg-gray-200 transition-colors">
+    ← Anterior
+  </button>
+  <span id="pagina-info" class="text-xs text-gray-500 font-medium flex-shrink-0">Página 1</span>
+  <button id="btn-proximo" disabled
+          class="flex-1 bg-gray-100 text-gray-500 text-xs font-bold py-2 px-3 rounded-lg disabled:opacity-40 hover:bg-gray-200 transition-colors">
+    Próxima →
+  </button>
+</div>
 
     </main>
 
-    <!-- FOOTER (Task 8) -->
+    <footer class="bg-[#111] py-3 px-4 text-center">
+  <p class="text-white/40 text-[8px]">© 2026 Vai de Click · Todos os direitos reservados</p>
+</footer>
 
   </div>
 
