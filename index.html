@@ -185,20 +185,107 @@
 
       <!-- DESTAQUES (Task 6) -->
 
-      <!-- WHATSAPP (Task 5) -->
+      <section id="grupos-vip" class="px-3 pt-4 pb-2">
+  <div class="flex items-center gap-2 mb-3">
+    <div class="section-bar-green h-4 flex-shrink-0"></div>
+    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Grupos VIP — WhatsApp</h2>
+  </div>
 
-      <!-- SOCIAL (Task 5) -->
+  <div class="rounded-xl p-3 mb-2 flex items-center gap-3"
+       style="background: linear-gradient(135deg, #075E54, #128C7E);">
+    <span class="text-3xl flex-shrink-0">📱</span>
+    <div>
+      <p class="text-white font-black text-xs leading-tight">Receba ofertas no WhatsApp</p>
+      <p class="text-white/70 text-[10px]">Grupos separados por categoria</p>
+    </div>
+    <span class="ml-auto bg-vdc-wa text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex-shrink-0">ENTRAR</span>
+  </div>
+
+  <div class="grid grid-cols-2 gap-1.5">
+
+    <a href="https://chat.whatsapp.com/LsBOhJUu09UG7BlNX1GhSZ" target="_blank" rel="noopener noreferrer"
+       class="bg-vdc-card border border-green-100 border-l-[3px] border-l-vdc-wa rounded-lg px-2.5 py-2 flex items-center gap-2 hover:shadow-sm transition-shadow">
+      <span class="text-sm">💻</span>
+      <span class="text-[10px] font-bold text-vdc-text">Eletrônicos</span>
+      <span class="ml-auto text-vdc-wa text-[10px]">→</span>
+    </a>
+
+    <a href="https://chat.whatsapp.com/H1V5sXKL4Ji0a93yAvAuZ7" target="_blank" rel="noopener noreferrer"
+       class="bg-vdc-card border border-green-100 border-l-[3px] border-l-vdc-wa rounded-lg px-2.5 py-2 flex items-center gap-2 hover:shadow-sm transition-shadow">
+      <span class="text-sm">🏠</span>
+      <span class="text-[10px] font-bold text-vdc-text">Casa & Decor</span>
+      <span class="ml-auto text-vdc-wa text-[10px]">→</span>
+    </a>
+
+    <a href="https://chat.whatsapp.com/Ea3wnpLDL7GL4XDZZticoa" target="_blank" rel="noopener noreferrer"
+       class="bg-vdc-card border border-green-100 border-l-[3px] border-l-vdc-wa rounded-lg px-2.5 py-2 flex items-center gap-2 hover:shadow-sm transition-shadow">
+      <span class="text-sm">👗</span>
+      <span class="text-[10px] font-bold text-vdc-text">Moda Unissex</span>
+      <span class="ml-auto text-vdc-wa text-[10px]">→</span>
+    </a>
+
+    <a href="https://chat.whatsapp.com/HMocwTuu24jFri5qwUeixT" target="_blank" rel="noopener noreferrer"
+       class="bg-vdc-card border border-green-100 border-l-[3px] border-l-vdc-wa rounded-lg px-2.5 py-2 flex items-center gap-2 hover:shadow-sm transition-shadow">
+      <span class="text-sm">👟</span>
+      <span class="text-[10px] font-bold text-vdc-text">Calçados</span>
+      <span class="ml-auto text-vdc-wa text-[10px]">→</span>
+    </a>
+
+    <a href="https://chat.whatsapp.com/JQUj9ixaXBa4i71fm5Wbnq" target="_blank" rel="noopener noreferrer"
+       class="col-span-2 bg-vdc-card border border-green-100 border-l-[3px] border-l-vdc-wa rounded-lg px-2.5 py-2 flex items-center gap-2 hover:shadow-sm transition-shadow">
+      <span class="text-sm">🐾</span>
+      <span class="text-[10px] font-bold text-vdc-text">Mundo Pet</span>
+      <span class="ml-auto text-vdc-wa text-[10px]">→</span>
+    </a>
+
+  </div>
+</section>
+
+      <section class="px-3 pt-4 pb-4">
+  <div class="flex items-center gap-2 mb-3">
+    <div class="section-bar h-4 flex-shrink-0"></div>
+    <h2 class="text-[11px] font-black text-vdc-text uppercase tracking-widest">Nos siga nas redes</h2>
+  </div>
+  <a href="https://www.instagram.com/vai_declick/" target="_blank" rel="noopener noreferrer"
+     class="vdc-gradient-ig rounded-xl p-3 flex items-center gap-3 hover:opacity-90 transition-opacity">
+    <i class="fa-brands fa-instagram text-white text-2xl flex-shrink-0"></i>
+    <div>
+      <p class="text-white font-black text-xs">@vai_declick</p>
+      <p class="text-white/80 text-[10px]">Siga para ver stories de ofertas!</p>
+    </div>
+    <span class="ml-auto bg-white/25 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex-shrink-0">SEGUIR</span>
+  </a>
+</section>
 
     </main>
 
-    <!-- FOOTER (Task 5) -->
+    <footer class="bg-[#111] py-3 px-4 text-center">
+  <p class="text-white/40 text-[8px]">© 2026 Vai de Click · Todos os direitos reservados</p>
+</footer>
 
   </div>
 
   <script src="js/config.js"></script>
   <script src="js/hub.js"></script>
   <script>
-    /* JS chips — Task 5 */
+    (function () {
+      var chips = document.querySelectorAll('.chip');
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var targetId = chip.getAttribute('data-target');
+          var target = document.querySelector(targetId);
+          chips.forEach(function (c) {
+            c.classList.remove('chip-active');
+            c.classList.add('chip-inactive');
+          });
+          chip.classList.remove('chip-inactive');
+          chip.classList.add('chip-active');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }());
   </script>
 </body>
 </html>
