@@ -1,0 +1,109 @@
+<h2>Qual estrutura de layout você prefere para o Hub?</h2>
+<p class="subtitle">Escolha como as seções vão se organizar na página principal</p>
+
+<div class="cards">
+
+  <!-- Opção A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111; padding:16px; font-family:monospace; font-size:11px; color:#aaa; line-height:1.8;">
+      <div style="background:#E62429; color:white; text-align:center; padding:8px 4px; border-radius:4px; font-weight:bold; font-size:12px;">🔥 VAI DE CLICK — LOGO + TAGLINE</div>
+      <div style="background:#222; color:#FFD700; text-align:center; padding:5px; margin-top:6px; border-radius:4px; font-size:10px;">📣 NOVIDADES TODOS OS DIAS — INSTAGRAM</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:6px;">
+        <div style="background:#1a1a1a; border:1px solid #E62429; border-radius:4px; padding:8px; text-align:center; color:white; font-size:10px;">💻 Eletrônicos<br><span style="color:#E62429; font-size:9px;">▶ VER OFERTAS</span></div>
+        <div style="background:#1a1a1a; border:1px solid #E62429; border-radius:4px; padding:8px; text-align:center; color:white; font-size:10px;">🏠 Casa & Decor<br><span style="color:#E62429; font-size:9px;">▶ VER OFERTAS</span></div>
+        <div style="background:#1a1a1a; border:1px solid #E62429; border-radius:4px; padding:8px; text-align:center; color:white; font-size:10px;">👗 Moda<br><span style="color:#E62429; font-size:9px;">▶ VER OFERTAS</span></div>
+        <div style="background:#1a1a1a; border:1px solid #E62429; border-radius:4px; padding:8px; text-align:center; color:white; font-size:10px;">👟 Calçados<br><span style="color:#E62429; font-size:9px;">▶ VER OFERTAS</span></div>
+        <div style="background:#1a1a1a; border:1px solid #E62429; border-radius:4px; padding:8px; text-align:center; color:white; font-size:10px; grid-column:span 2;">🐾 Mundo Pet<br><span style="color:#E62429; font-size:9px;">▶ VER OFERTAS</span></div>
+      </div>
+      <div style="background:#E62429; color:white; text-align:center; padding:6px; margin-top:6px; border-radius:4px; font-size:10px; font-weight:bold;">📱 GRUPOS VIP DE WHATSAPP</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-top:4px;">
+        <div style="background:#25D366; color:white; text-align:center; padding:4px; border-radius:3px; font-size:9px;">Eletrônicos</div>
+        <div style="background:#25D366; color:white; text-align:center; padding:4px; border-radius:3px; font-size:9px;">Casa & Decor</div>
+        <div style="background:#25D366; color:white; text-align:center; padding:4px; border-radius:3px; font-size:9px;">Moda</div>
+        <div style="background:#25D366; color:white; text-align:center; padding:4px; border-radius:3px; font-size:9px;">Calçados</div>
+        <div style="background:#25D366; color:white; text-align:center; padding:4px; border-radius:3px; font-size:9px; grid-column:span 2;">Pet</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Fundo Escuro + Grid de Categorias</h3>
+      <p>Fundo preto/escuro como base. Logo no topo, grid 2 colunas de categorias no centro, grupos de WhatsApp na parte inferior. Visual agressivo e impactante, parecido com portais de oferta noturnos.</p>
+    </div>
+  </div>
+
+  <!-- Opção B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f5f5f5; padding:16px; font-family:monospace; font-size:11px; color:#333; line-height:1.8;">
+      <div style="background:linear-gradient(90deg,#E62429,#ff6b35); color:white; text-align:center; padding:8px 4px; border-radius:4px; font-weight:bold; font-size:12px;">🔥 VAI DE CLICK — LOGO</div>
+      <div style="display:flex; gap:4px; margin-top:6px; overflow:hidden;">
+        <div style="background:white; border-radius:20px; padding:4px 8px; font-size:9px; border:2px solid #E62429; white-space:nowrap;">💻 Eletrôn.</div>
+        <div style="background:white; border-radius:20px; padding:4px 8px; font-size:9px; border:1px solid #ddd; white-space:nowrap;">🏠 Casa</div>
+        <div style="background:white; border-radius:20px; padding:4px 8px; font-size:9px; border:1px solid #ddd; white-space:nowrap;">👗 Moda</div>
+        <div style="background:white; border-radius:20px; padding:4px 8px; font-size:9px; border:1px solid #ddd; white-space:nowrap;">+2</div>
+      </div>
+      <div style="background:#FFD700; color:#111; text-align:center; padding:5px; margin-top:6px; border-radius:4px; font-size:10px; font-weight:bold;">⚡ MEGA PROMOÇÃO DO DIA — ELETRÔNICOS</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:3px; margin-top:6px;">
+        <div style="background:white; border-radius:4px; padding:6px; text-align:center; border:1px solid #eee; font-size:9px; color:#333;"><span style="font-size:16px;">💻</span><br/>Eletrônicos<br/><span style="color:#E62429; font-size:8px;">VER →</span></div>
+        <div style="background:white; border-radius:4px; padding:6px; text-align:center; border:1px solid #eee; font-size:9px; color:#333;"><span style="font-size:16px;">🏠</span><br/>Casa<br/><span style="color:#E62429; font-size:8px;">VER →</span></div>
+        <div style="background:white; border-radius:4px; padding:6px; text-align:center; border:1px solid #eee; font-size:9px; color:#333;"><span style="font-size:16px;">👗</span><br/>Moda<br/><span style="color:#E62429; font-size:8px;">VER →</span></div>
+        <div style="background:white; border-radius:4px; padding:6px; text-align:center; border:1px solid #eee; font-size:9px; color:#333;"><span style="font-size:16px;">👟</span><br/>Calçados<br/><span style="color:#E62429; font-size:8px;">VER →</span></div>
+        <div style="background:white; border-radius:4px; padding:6px; text-align:center; border:1px solid #eee; font-size:9px; color:#333;"><span style="font-size:16px;">🐾</span><br/>Pet<br/><span style="color:#E62429; font-size:8px;">VER →</span></div>
+        <div style="background:#25D366; border-radius:4px; padding:6px; text-align:center; font-size:9px; color:white;">📱 Grupos<br/>VIP</div>
+      </div>
+      <div style="display:flex; gap:4px; margin-top:6px;">
+        <div style="background:linear-gradient(45deg,#833AB4,#fd1d1d,#fcb045); color:white; text-align:center; padding:5px; border-radius:4px; font-size:9px; flex:1;">📸 Instagram</div>
+        <div style="background:#25D366; color:white; text-align:center; padding:5px; border-radius:4px; font-size:9px; flex:1;">💬 WhatsApp</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Fundo Claro + Barra de Categorias + Banner</h3>
+      <p>Fundo branco/cinza claro. Barra de filtro de categorias no topo (scrollável), banner de destaque do dia, grid de categorias em 3 colunas, redes sociais no rodapé. Visual familiar, parecido com Americanas/Shopee.</p>
+    </div>
+  </div>
+
+  <!-- Opção C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0f0f0f; padding:16px; font-family:monospace; font-size:11px; color:#aaa; line-height:1.8;">
+      <div style="display:flex; align-items:center; gap:8px; background:#1a1a1a; padding:6px 8px; border-radius:6px;">
+        <div style="background:#E62429; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px;">🔥</div>
+        <div>
+          <div style="color:white; font-weight:bold; font-size:11px;">VAI DE CLICK</div>
+          <div style="color:#888; font-size:9px;">Ofertas & Descontos</div>
+        </div>
+        <div style="margin-left:auto; display:flex; gap:4px;">
+          <div style="background:#833AB4; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; color:white;">📸</div>
+          <div style="background:#25D366; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; color:white;">💬</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:4px; margin-top:8px;">
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e); border:1px solid #E62429; border-left:4px solid #E62429; border-radius:6px; padding:10px; display:flex; align-items:center; gap:8px;">
+          <span style="font-size:22px;">💻</span>
+          <div>
+            <div style="color:white; font-weight:bold; font-size:11px;">Eletrônicos</div>
+            <div style="color:#aaa; font-size:9px;">Smartphones, TVs, PCs...</div>
+          </div>
+          <div style="margin-left:auto; background:#E62429; color:white; padding:3px 7px; border-radius:4px; font-size:9px; font-weight:bold;">VER</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e); border:1px solid #333; border-radius:6px; padding:10px; display:flex; align-items:center; gap:8px;">
+          <span style="font-size:22px;">🏠</span>
+          <div>
+            <div style="color:white; font-weight:bold; font-size:11px;">Casa & Decor</div>
+            <div style="color:#aaa; font-size:9px;">Móveis, utensílios...</div>
+          </div>
+          <div style="margin-left:auto; background:#333; color:white; padding:3px 7px; border-radius:4px; font-size:9px;">VER</div>
+        </div>
+        <div style="background:#0d2818; border:1px solid #25D366; border-radius:6px; padding:8px; display:flex; align-items:center; gap:6px;">
+          <span style="font-size:14px;">📱</span>
+          <div style="color:#25D366; font-size:10px; font-weight:bold;">GRUPOS VIP — Entrar no WhatsApp</div>
+          <div style="margin-left:auto; background:#25D366; color:white; padding:3px 7px; border-radius:4px; font-size:9px;">▶</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Lista Vertical com Cards Expandidos</h3>
+      <p>Fundo muito escuro (quase preto). Navbar compacta no topo com logo + ícones sociais. Categorias em lista vertical com cards estilo "linha de item", cada um com ícone, nome e botão de ação. WhatsApp integrado como item destacado entre as categorias.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Clique em uma opção para selecionar. Pode comentar no terminal também.</p>
